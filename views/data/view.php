@@ -64,6 +64,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->discount.'%';
                 }
             ],
+            [
+                'attribute' => 'activation_date',
+                'value' => function($data){
+                    //$month =  intval(date("m", strtotime($data->activation_date)));
+                    return $data->activation_date != '0000-00-00' ? date("d.m.Y", strtotime($data->activation_date)) : '';
+                }
+            ],
             'user_name:ntext',
             [
                 'attribute' => 'gender',
@@ -86,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'born_date',
                 'value' => function($data){
-                    $month =  intval(date("m", strtotime($data->born_date)));
+                    //$month =  intval(date("m", strtotime($data->born_date)));
                     return $data->born_date != '0000-00-00' ? date("d.m.Y", strtotime($data->born_date)) : '';
                 },
             ],

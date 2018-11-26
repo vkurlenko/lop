@@ -13,11 +13,13 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="data-index">
 
     <!--<h1><?/*= Html::encode($this->title) */?></h1>-->
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
 
 
     <?php
-    //\app\controllers\DataController::convertDate();
+    //\app\controllers\DataController::convertDate('born_date');
+    //\app\controllers\DataController::convertGender();
+    //\app\controllers\DataController::setCardNumber();
     ?>
 
     <?= GridView::widget([
@@ -42,8 +44,17 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'card',
                 'value' => function($data){
-                    return $data->card ? sprintf("%'05d\n", $data->card) : '';
+                    return $data->card ? sprintf("%'013d\n", $data->card) : '';
                 }
+            ],
+            [
+                'attribute' => 'activation_date',
+                'value' => $data->activation_date,
+                /*'content'=>function($data){
+                    return $data->activation_date == '0000-00-00' ? '0000-00-00' : $data->activation_date;
+                },*/
+                'format' => ['date', 'dd.MM.yyyy'],//'format' => 'raw',
+                'label' => 'Дата активации'
             ],
             [
                 'attribute' => 'discount',
@@ -109,7 +120,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => ['date', 'dd.MM.yyyy']//'raw'
             ],
-
 
             'email:email',
             'phone',

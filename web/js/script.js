@@ -17,6 +17,10 @@ $(document).ready(function(){
         fillField($(this))
     });
 
+    $('#search-reset').click(function()
+    {
+        window.location = "/";
+    })
 
 
 })

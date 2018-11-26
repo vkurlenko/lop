@@ -66,7 +66,7 @@ class DataSearch extends Data
             'id' => $this->id,
             'code' => $this->code,
             'name' => $this->name,
-            'card' => $this->card,
+            //'card' => $this->card,
             'discount' => $this->discount,
             'age' => $this->born_date,
             'born_year' => $this->born_date,
@@ -74,6 +74,7 @@ class DataSearch extends Data
         ]);
 
         $query->andFilterWhere(['like', 'user_name', $this->user_name])
+            ->andFilterWhere(['like', 'card', $this->card])
             ->andFilterWhere(['like', 'gender', $this->gender])
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'phone', $this->phone])

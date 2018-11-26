@@ -30,7 +30,7 @@ class Data extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'data';
+        return 'data3';
     }
 
     /**
@@ -47,8 +47,8 @@ class Data extends \yii\db\ActiveRecord
             [['phone'], 'string', 'max' => 255],
         ];*/
         return [
-            [['card', 'user_name', 'born_date', 'user_name', 'gender', 'email', 'phone'], 'required'],
-            [['card', 'discount', 'born_year', 'send_status'], 'integer'],
+            [['card', 'user_name', 'activation_date', 'born_date', 'user_name', 'gender', 'phone'], 'required'],
+            [['card', 'discount', 'send_status'], 'integer'],
             [['user_name', 'gender', 'comment', 'subscribe'], 'string'],
             [['born_date'], 'safe'],
             [['email'], 'email'],
@@ -66,6 +66,7 @@ class Data extends \yii\db\ActiveRecord
             'code' => 'Код',
             'name' => 'Наименование',
             'card' => 'Номер карты',
+            'activation_date' => 'Дата активации',
             'discount' => 'Скидка',
             'user_name' => 'Имя клиента',
             'gender' => 'Пол',

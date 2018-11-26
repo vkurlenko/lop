@@ -86,9 +86,14 @@ class DataController extends AppController
         $model = new Data();
 
         $model->discount = 0;
+        $model->activation_date = date('Y-m-d');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) /*&& $model->save()*/) {
+
+            $check = self::check($model);
+
+            if($check && $model->save())
+                return $this->redirect(['view', 'id' => $model->id]);
         }
         else{
             // сформируем номер новой карты клиента
@@ -99,6 +104,61 @@ class DataController extends AppController
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+
+    /**
+     * проверка на создание дубликата записи по имени, email и телефону
+     */
+    public static function check($model)
+    {
+        $flag = true;
+        $records = Data::find()->select('user_name, phone, email')->asArray()->all();
+
+        foreach($records as $record){
+            if(self::convertString($model->user_name) == self::convertString($record['user_name'])){
+                Yii::$app->session->addFlash('danger', 'Клиент с именем <em><b>' . $record['user_name'] . '</b></em> уже существует');
+                $flag = false;
+                break;
+            }
+
+            if(self::convertString($model->phone) == self::convertString($record['phone'])){
+                Yii::$app->session->addFlash('danger', 'Клиент с телефоном <em><b>' . $record['phone'] . '</b></em> уже существует');
+                $flag = false;
+                break;
+            }
+
+            if(self::convertString($model->email) == self::convertString($record['email'])){
+                Yii::$app->session->addFlash('danger', 'Клиент с email <em><b>' . $record['email'] . '</b></em> уже существует');
+                $flag = false;
+                break;
+            }
+        }
+        return $flag;
+    }
+
+
+    public static function convertString($string)
+    {
+        return str_replace(' ', '', mb_strtolower($string));
+    }
+
+    public static function setCardNumber()
+    {
+        $arr = Data::find()->where(['card' => 0])->asArray()->all();
+
+        if(!empty($arr)){
+            $max = Data::find()->max('card');
+            $max++;
+            echo $max;
+            foreach($arr as $row){
+                $q = Data::findOne($row['id']);
+                $q->card = $max++;
+                $q->save(false);
+            }
+        }
+
+        debug($arr);
     }
 
     /**
@@ -220,21 +280,38 @@ class DataController extends AppController
     }
 
     // конвертация даты из dd.mm.yyyy -> yyyy-mm-dd
-    public static function convertDate(){
+    public static function convertDate($field){
         $arr = Data::find()->asArray()->all();
 
         foreach($arr as $str => $v){
-            $date = $v['born_date'];
+            $date = $v[$field];
+            //$date = $v['activation_date'];
 
             if(trim($date) != ''){
                 $d = explode('.', $date);
                 if(!empty($d) && count($d) == 3){
                     $new_date = $d[2].'-'.$d[1].'-'.$d[0];
                     $q = Data::findOne($v['id']);
-                    $q->born_date = $new_date;
+                    $q->$field = $new_date;
                     $q->save(false);
                 }
             }
+        }
+    }
+
+    // конвертация gender из м/ж -> 1/0
+    public static function convertGender(){
+        $arr = Data::find()->asArray()->all();
+
+        foreach($arr as $str => $v){
+            $gender = $v['gender'];
+            $q = Data::findOne($v['id']);
+
+            echo $gender;
+
+            $gender == 'м' ? $q->gender = '1' : $q->gender = '0';
+
+            $q->save(false);
         }
     }
 

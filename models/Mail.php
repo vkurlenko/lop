@@ -55,7 +55,7 @@ class Mail extends \yii\db\ActiveRecord
     public function upload()
     {
         if ($this->validate()) {
-            $this->img->saveAs('upload/' . $this->img->baseName . '.' . $this->img->extension);
+            //$this->img->saveAs('upload/' . $this->img->baseName . '.' . $this->img->extension);
             $this->img = 'upload/' . $this->img->baseName . '.' . $this->img->extension;
             $this->save();
             return true;

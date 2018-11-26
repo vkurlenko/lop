@@ -17,7 +17,9 @@ use yii\widgets\ActiveForm;
 
     --><?/*= $form->field($model, 'name')->textInput() */?>
 
-    <?= $form->field($model, 'card')->textInput() ?>
+    <?= $form->field($model, 'card')->textInput(['readonly' => true]) ?>
+
+    <?= $form->field($model, 'activation_date')->widget(\yii\jui\DatePicker::class, ['language' => 'ru', 'dateFormat' => 'yyyy-MM-dd']) ?>
 
     <?= $form->field($model, 'discount')->textInput() ?>
 

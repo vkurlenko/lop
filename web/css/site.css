@@ -167,6 +167,8 @@ a.desc:after {
 .badge-warning{background:#f0ad4e}
 .badge-danger{background:#d9534f}
 
+.search-table tr td{padding:0 5px}
+
 .login-header img, .login-header span{
     display: block;
     float: left;

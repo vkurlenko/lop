@@ -15,17 +15,33 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <?/*= $form->field($model, 'id') */?><!--
 
-    <?= $form->field($model, 'code') ?>
+    <?/*= $form->field($model, 'code') */?>
 
-    <?= $form->field($model, 'name') ?>
+    --><?/*= $form->field($model, 'name') */?>
 
-    <?= $form->field($model, 'card') ?>
+    <?/*= $form->field($model, 'discount') */?>
 
-    <?= $form->field($model, 'discount') ?>
 
-    <?php // echo $form->field($model, 'user_name') ?>
+    <table class="search-table">
+        <tr>
+            <td><?php echo $form->field($model, 'card') ?></td>
+            <td><?php echo $form->field($model, 'user_name') ?></td>
+            <td><?php echo $form->field($model, 'phone') ?></td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="form-group">
+                    <?= Html::submitButton('Поиск', ['class' => 'btn btn-primary']) ?>
+                    <?= Html::resetButton('Сброс', ['class' => 'btn btn-default', 'id' => 'search-reset']) ?>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+
 
     <?php // echo $form->field($model, 'gender') ?>
 
@@ -37,16 +53,11 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'email') ?>
 
-    <?php // echo $form->field($model, 'phone') ?>
-
     <?php // echo $form->field($model, 'comment') ?>
 
     <?php // echo $form->field($model, 'subscribe') ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
-    </div>
+
 
     <?php ActiveForm::end(); ?>
 
