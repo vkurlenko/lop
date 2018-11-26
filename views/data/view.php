@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
 
-        <?= Html::a('Отправить QR-код на email', ['sendqrcode', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Отправить QR-код на email', ['sendqrcode', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
 
     </p>
 

@@ -1,24 +1,22 @@
 function deletePadding(obj){
     $(obj).parent('td').css('padding', 0);
-
 }
 
+// раскраска дат рождения
 function fillField(obj){
-    /*var bg = $(obj).css('background-color');
-    $(obj).parent('td').css('background-color', bg);*/
-    //var bg = $(obj).css('background-color');
     $(obj).parent('td').addClass($(obj).attr('data-month'));
 }
 
 $(document).ready(function(){
     //deletePadding($('.m'));
 
-    $('.m').each(function(){
+    // раскраска дат
+    /*$('.m').each(function(){
         fillField($(this))
-    });
+    });*/
 
-    $('#search-reset').click(function()
-    {
+
+    $('#search-reset').click(function() {
         window.location = "/";
     })
 

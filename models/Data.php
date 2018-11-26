@@ -47,7 +47,7 @@ class Data extends \yii\db\ActiveRecord
             [['phone'], 'string', 'max' => 255],
         ];*/
         return [
-            [['card', 'user_name', 'activation_date', 'born_date', 'user_name', 'gender', 'phone'], 'required'],
+            [['card', 'user_name', 'activation_date', 'born_date', 'user_name', 'gender'], 'required'],
             [['card', 'discount', 'send_status'], 'integer'],
             [['user_name', 'gender', 'comment', 'subscribe'], 'string'],
             [['born_date'], 'safe'],
