@@ -1,21 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: admin
- * Date: 20.09.2018
- * Time: 13:03
- */
 
-namespace app\commands;
+namespace app\controllers;
 
 use app\models\Data;
 use Yii;
-use yii\console\Controller;
-use yii\console\ExitCode;
+use yii\web\Controller;
 use yii\validators\EmailValidator;
 
-
-class ReminderController extends Controller
+/* проверка выборки дней рождения */
+class TestController extends AppController
 {
     /**
      * отправка писем-напоминаний о скидке к ДР
@@ -27,6 +20,8 @@ class ReminderController extends Controller
 
         $arr = self::getUsers();
 
+        debug($arr);
+
         foreach( $arr as $interval => $users ){
             foreach( $users as $user ){
 
@@ -37,11 +32,11 @@ class ReminderController extends Controller
                 $message = Yii::$app->mailer->compose('mail-remind', $params);
 
                 $validator = new EmailValidator();
-                if ($validator->validate($user['email'], $error)) {
+                if ( $validator->validate( $user['email'], $error )) {
                     $send = $message
-                        //->setTo('vkurlenko@yandex.ru')
-                        ->setTo($user['email'])
-                        ->setBcc('vkurlenko@yandex.ru')
+                        //->setTo($user['email'])
+                        ->setTo('vkurlenko@mail.ru')
+                        //->setFrom('lofporches@yandex.ru')
                         ->setFrom(['loyalty@lion-of-porches.ru' => 'Lion Of Porches'])
                         ->setSubject($subject)
                         ->send();
@@ -52,13 +47,13 @@ class ReminderController extends Controller
             }
         }
 
-        return ExitCode::OK;
+        return $send;//ExitCode::OK;
     }
 
     /**
      * сформируем поля письма {имя, дата ДР, дата окончания скидки}
      */
-    public static function getMailFields($interval = null, $user = []){
+    public static function getMailFields( $interval = null, $user = [] ){
 
         if($interval != null && !empty($user)){
 
@@ -66,10 +61,10 @@ class ReminderController extends Controller
 
             if($interval == 'today')
                 $date_stop  = mktime(0, 0, 0, date("m")  , date("d")+7, date("Y"));
-                //date_add($date_stop, date_interval_create_from_date_string('7 days'));
+            //date_add($date_stop, date_interval_create_from_date_string('7 days'));
             else
                 $date_stop  = mktime(0, 0, 0, date("m")  , date("d")+14, date("Y"));
-                //date_add($date_stop, date_interval_create_from_date_string('14 days'));
+            //date_add($date_stop, date_interval_create_from_date_string('14 days'));
 
             $params = [
                 'user_name'  => $user['user_name'],
@@ -109,7 +104,10 @@ class ReminderController extends Controller
 
         // выберем клиентов с ДР через 7 дней
         $week = date_create(date('Y-m-d'));
+
         date_add($week, date_interval_create_from_date_string('7 days'));
+
+        echo date_format($week, 'm-d');
 
         $users_week = Data::find()
             //->where(['born_date' => date_format($week, 'Y-m-d')])
@@ -117,7 +115,7 @@ class ReminderController extends Controller
             ->asArray()
             ->all();
 
-        $arr['week'] = [];//$users_week;
+        $arr['week'] = $users_week;
 
         return $arr;
     }

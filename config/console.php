@@ -16,6 +16,32 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            // send all mails to a file by default. You have to set
+            // 'useFileTransport' to false and configure a transport
+            // for the mailer to send real emails.
+
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                /*'host' => 'smtp.yandex.ru',
+                'username' => 'lofporches@yandex.ru',
+                'password' => 'lofporches1',
+                'port' => '465',
+                'encryption' => 'ssl',*/
+                'host' => 'mail.nic.ru',
+                'username' => 'loyalty@lion-of-porches.ru',
+                'password' => 'Chq3uUrb2cgbCBm5KR02',
+                'port' => '465',
+                'encryption' => 'ssl',
+            ],
+            'useFileTransport' => false,
+            'viewPath' => '@app/mail',
+            'messageConfig' => [
+                'charset' => 'UTF-8',
+                'from' => ['loyalty@lion-of-porches.ru' => 'Lion of Porches'],
+            ],
+        ],
         'log' => [
             'targets' => [
                 [

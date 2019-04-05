@@ -246,7 +246,8 @@ class DataController extends AppController
                     $send = $message
                         ->setTo($user->email)
                         ->setBcc('vkurlenko@yandex.ru')
-                        ->setFrom('lofporches@yandex.ru')
+                        //->setFrom('lofporches@yandex.ru')
+                        ->setFrom(['loyalty@lion-of-porches.ru' => 'Lion Of Porches'])
                         ->setSubject($subject)
                         //->setTextBody('Текст сообщения')
                         //->attach('./passes/sample.pkpass')

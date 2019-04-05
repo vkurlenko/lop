@@ -36,13 +36,18 @@ $config = [
 
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.yandex.ru',
+                /*'host' => 'smtp.yandex.ru',
                 'username' => 'lofporches@yandex.ru',
                 'password' => 'lofporches1',
                 'port' => '465',
+                'encryption' => 'ssl',*/
+                'host' => 'mail.nic.ru',
+                'username' => 'loyalty@lion-of-porches.ru',
+                'password' => 'Chq3uUrb2cgbCBm5KR02',
+                'port' => '465',
                 'encryption' => 'ssl',
             ],
-            'useFileTransport' => false,
+            'useFileTransport' => true,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

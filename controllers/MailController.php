@@ -303,7 +303,8 @@ class MailController extends Controller
                     $send = $message
                         ->setTo($user_email)
                         //->setBcc('vkurlenko@yandex.ru')
-                        ->setFrom('lofporches@yandex.ru')
+                        //->setFrom('lofporches@yandex.ru')
+                        ->setFrom(['loyalty@lion-of-porches.ru' => 'Lion Of Porches'])
                         ->setSubject($params['subject'])
                         ->setHtmlBody($params['body'])
                         ->send();
